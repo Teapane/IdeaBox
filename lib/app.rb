@@ -49,6 +49,11 @@ get '/search' do
   tagged_ideas = IdeaStore.search(params[:search_tag])
     erb :search, locals: {tagged_ideas: tagged_ideas}
 end
+
+get '/lookup' do
+  lookup_ideas = IdeaStore.lookup(params[:lookup])
+  erb :lookup, locals: {lookup_ideas: lookup_ideas}
+end
   # post '/:id/sort' do |id|
   #   idea = IdeaStore.find(id.to_i)
   #   idea.tags!

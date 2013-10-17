@@ -3,16 +3,16 @@
 <h1>Ideabox</h1>
    </head>
   <style> 
-      body {background-color: green; 
-             color: blue ;
+      body {background-color: FF6633; 
+             color: black ;
                }
   </style>
   <body>
 
-<h3>Sorted Ideas</h3>
+<h3>Attributes Search</h3>
 
 <ul>
-  <% tagged_ideas.each do |idea| %>
+  <% lookup_ideas.each do |idea| %>
       <li>
         <form action='/<%= idea.id %>/like' method='POST' style="display: inline">
         <input type='submit' value="Like?"/>

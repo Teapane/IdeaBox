@@ -72,11 +72,7 @@ end
  #      end
  #    end
  #    ideas.map! {|i| Idea.new(i)}
- #  end
-
-  def self.search(search_tag)
-    all.select { |idea| idea.to_h["tags"].include? search_tag }
-  end
+ #  end  
   #database["ideas"].select do |idea|
     #idea["tags"].include?(search_tag)
   #end
@@ -89,6 +85,21 @@ end
   all.group_by{|idea| idea.tags}
  end
 
+ def self.search(search_tag)
+    all.select { |idea| idea.to_h["tags"].include? search_tag }
+  end
+
+ def self.lookup(keyword)
+   all.select do |idea|
+    if idea.to_h["title"] 
+     idea.to_h["title"].include?(keyword)
+    elsif idea.to_h["description"] 
+     idea.to_h["description"].include?(keyword)
+    elsif idea.to_h["tags"] 
+     idea.to_h["tags"].include?(keyword) 
+  end
+ end
+end
 
 
 end

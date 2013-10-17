@@ -53,7 +53,11 @@ class IdeaStoreTest <Minitest::Test
     #assert_equal 2, result.id
     assert_equal 1, result.count
   end
-
+ 
+ def test_it_can_lookup_by_phrase
+  result = IdeaStore.lookup("Why?")
+  assert_equal 1, result.count
+end
 
   #def test_it_can_update_an_idea
 end
