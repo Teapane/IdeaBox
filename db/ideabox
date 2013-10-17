@@ -1,5 +1,8 @@
 ---
 ideas:
-- title: Goldfish
-  description: "Goldfish smiles. Work it out\r\n"
-  rank: 6
+- title: Hi
+  description: Hi
+  tags: Hi
+- title: hi
+  description: hi
+  tags: hi

@@ -1,8 +1,8 @@
 require 'bundler'
-require 'idea_box'
+require_relative 'idea_box'
 Bundler.require
 
-class IdeaBoxApp < Sinatra::Base
+class IdeaBox < Sinatra::Base
   set :method_override, true
   set :root, 'lib/app'
   configure :development do
@@ -43,5 +43,18 @@ class IdeaBoxApp < Sinatra::Base
     IdeaStore.update(id.to_i, idea.to_h)
     redirect '/'
   end  
+
+
+get '/search' do
+  tagged_ideas = IdeaStore.search(params[:search_tag])
+    erb :search, locals: {tagged_ideas: tagged_ideas}
+end
+  # post '/:id/sort' do |id|
+  #   idea = IdeaStore.find(id.to_i)
+  #   idea.tags!
+  #   IdeaStore.update(id.to_i, idea.to_h)
+  #   redirect '/'
+  #   #"HEYYY"
+  # end
 
 end

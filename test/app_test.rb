@@ -2,18 +2,34 @@ gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/app'
+require './lib/app'
 require 'rack/test'
 
-class AppTest < Minitest::AppTest
+class AppTest < Minitest::Test
   include Rack::Test::Methods
 
   def app
-    IdeaBoxApp
+    IdeaBox
   end
 
-  def test_hello
+  def test_it_exists
+    assert IdeaBox
+  end
+
+  def test_it_moves_to_index
+    get '/'
+    assert last_response.ok?
+    assert_equal 200, last_response.status
+  end
+
+  def test_form_displays_properly
     get "/"
-    assert_equal "Hello World", last_response.body
+    assert (last_response.body =~ /Existing Ideas/)
+    assert (last_response.body =~ /IdeaBox/)
+    assert (last_response.body =~ /tag/)
+    assert (last_response.body =~ /Your Idea/)
+    assert (last_response.body =~ /submit/)
+    assert (last_response.body =~ /description/)
   end
 
   def test_create_new_idea

@@ -1,16 +1,17 @@
 class Idea
 
-  attr_reader :title, :description, :rank, :id
+  attr_reader :title, :description, :rank, :id, :tags
 
   def initialize(attributes = {})
-    @title = attributes["title"]
+    @title       = attributes["title"]
     @description = attributes["description"]
-    @rank = attributes["rank"] || 0
-    @id = attributes ["id"]
+    @rank        = attributes["rank"] || 0
+    @id          = attributes ["id"]
+    @tags        = attributes ["tags"]
   end
 
   def save
-    IdeaStore.create("title" => title, "description" => description, "rank" => rank)
+    IdeaStore.create("title" => title, "description" => description, "rank" => rank, "tags" => tags)
   end
 
   def database
@@ -20,30 +21,30 @@ class Idea
   def save
   database.transaction do
     database['ideas'] ||= []
-    database['ideas'] << {"title" => title, "description" => description}
+    database['ideas'] << {"title" => title, "description" => description, "rank" => rank, "tags" => tags}
   end
 end
 
-  def save
+ def save
   IdeaStore.create(to_h)
-end
+ end
 
-def to_h
+ def to_h
   {
     "title" => title,
     "description" => description,
-    "rank" => rank
+    "rank" => rank,
+    "tags" => tags
   }
-end
+ end
 
-def like!
+ def like!
   @rank += 1
-end
+ end
 
-def <=>(other)
+ def <=>(other)
   other.rank <=> rank
-end
+ end
 
-  
 end 
  

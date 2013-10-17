@@ -46,6 +46,12 @@ end
     end
   end
 
+  def self.destroy_database
+    database.transaction do |db|
+      db["ideas"] = []
+    end
+  end
+
   def self.find_raw_idea(id)
    database.transaction do
     database['ideas'].at(id)
@@ -56,7 +62,33 @@ end
   database.transaction do
     database['ideas'][id] = data
   end
-end  
+end 
+
+ # def self.search(search_tag)
+ #  database.transaction do 
+ #    ideas = database["ideas"].select do |idea|
+ #      if idea["tags"]
+ #        idea["tags"].include?(search_tag)
+ #      end
+ #    end
+ #    ideas.map! {|i| Idea.new(i)}
+ #  end
+
+  def self.search(search_tag)
+    all.select { |idea| idea.to_h["tags"].include? search_tag }
+  end
+  #database["ideas"].select do |idea|
+    #idea["tags"].include?(search_tag)
+  #end
+    #{|tag| searching_tags.gsub(",","").split(" ").include?(tag)} 
+#   end
+#  end
+# end
+
+ def self.group_by_tag
+  all.group_by{|idea| idea.tags}
+ end
+
 
 
 end
