@@ -1,3 +1,5 @@
+ENV['RACK_ENV'] = 'test'
+
 gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
@@ -36,7 +38,10 @@ class AppTest < Minitest::Test
     post "/", {idea: {title: "exercise", description: "Sign up for stick fighting classes"}}
     idea = IdeaStore.all.first
     assert_equal "exercise", idea.title
-    assert_equal "sign up for...", idea.description
+    assert_equal "Sign up for stick fighting classes", idea.description
   end
 
+  def teardown
+    IdeaStore.destroy_database
+  end
 end 

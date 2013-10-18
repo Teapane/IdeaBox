@@ -1,9 +1,6 @@
 require 'yaml/store'
 
 class IdeaStore
-  def self.database
-    @database ||= YAML::Store.new('db/ideabox')
-  end
 
 def self.all
   ideas = []
@@ -21,7 +18,11 @@ end
 def self.database
   return @database if @database
 
-  @database = YAML::Store.new('db/ideabox')
+  if ENV['RACK_ENV'] == "test"
+    @database ||= YAML::Store.new("db/test_ideabox")
+  else
+    @database ||= YAML::Store.new('db/ideabox')
+  end
   @database.transaction do
     @database['ideas'] ||= []
   end
@@ -89,17 +90,14 @@ end
     all.select { |idea| idea.to_h["tags"].include? search_tag }
   end
 
- def self.lookup(keyword)
+ def self.lookup(keyword) #This method is only returning the first part of the loop
    all.select do |idea|
-    if idea.to_h["title"] 
-     idea.to_h["title"].include?(keyword)
-    elsif idea.to_h["description"] 
-     idea.to_h["description"].include?(keyword)
-    elsif idea.to_h["tags"] 
+    #if idea.to_h["title"] 
+     idea.to_h["title"].include?(keyword)||
+    #elsif idea.to_h["description"] 
+     idea.to_h["description"].include?(keyword) ||
+    #elsif idea.to_h["tags"] 
      idea.to_h["tags"].include?(keyword) 
   end
  end
-end
-
-
 end
