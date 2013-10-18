@@ -2,102 +2,70 @@ require 'yaml/store'
 
 class IdeaStore
 
-def self.all
-  ideas = []
-  raw_ideas.each_with_index do |data, i|
-    ideas << Idea.new(data.merge("id" => i))
+  def self.all
+    ideas = []
+    raw_ideas.each_with_index do |data, i|
+      ideas << Idea.new(data.merge("id" => i))
+      end
+    ideas
   end
-  ideas
-end
 
-def self.find(id)
-  raw_idea = find_raw_idea(id)
-  Idea.new(raw_idea.merge("id" => id))
-end
-
-def self.database
-  return @database if @database
-
-  if ENV['RACK_ENV'] == "test"
-    @database ||= YAML::Store.new("db/test_ideabox")
-  else
-    @database ||= YAML::Store.new('db/ideabox')
+  def self.find(id)
+    raw_idea = find_raw_idea(id)
+    Idea.new(raw_idea.merge("id" => id))
   end
-  @database.transaction do
-    @database['ideas'] ||= []
-  end
-  @database
-end
 
-def self.create(data)
-  database.transaction do
-    database['ideas'] << data
+  def self.database 
+    @database ||= if ENV['RACK_ENV'] == "test"
+    YAML::Store.new("db/test_ideabox")
+   else
+    YAML::Store.new('db/ideabox')
+   end
   end
-end
+
+  def self.create(data)
+    transaction { database_ideas << data }
+  end
 
   def self.raw_ideas
-  database.transaction do |db|
-    db['ideas'] || []
-    end
+    transaction { database_ideas || [] }
   end
 
   def self.delete(position)
-    database.transaction do
-      database['ideas'].delete_at(position)
-    end
+    transaction { raw_ideas.delete_at(position) }
   end
 
   def self.destroy_database
-    database.transaction do |db|
-      db["ideas"] = []
-    end
+    transaction { database["ideas"] = [] }
   end
 
   def self.find_raw_idea(id)
-   database.transaction do
-    database['ideas'].at(id)
+    transaction { database_ideas.at(id) }
   end
- end
 
- def self.update(id, data)
-  database.transaction do
-    database['ideas'][id] = data
+  def self.update(id, data)
+    transaction { database_ideas[id] = data }
+  end 
+
+  def self.transaction
+    database.transaction { yield }
   end
-end 
 
- # def self.search(search_tag)
- #  database.transaction do 
- #    ideas = database["ideas"].select do |idea|
- #      if idea["tags"]
- #        idea["tags"].include?(search_tag)
- #      end
- #    end
- #    ideas.map! {|i| Idea.new(i)}
- #  end  
-  #database["ideas"].select do |idea|
-    #idea["tags"].include?(search_tag)
-  #end
-    #{|tag| searching_tags.gsub(",","").split(" ").include?(tag)} 
-#   end
-#  end
-# end
+  def self.database_ideas
+    database['ideas']
+  end
 
- def self.group_by_tag
-  all.group_by{|idea| idea.tags}
- end
+  def self.group_by_tag
+    all.group_by{|idea| idea.tags}
+  end
 
- def self.search(search_tag)
+  def self.search(search_tag)
     all.select { |idea| idea.to_h["tags"].include? search_tag }
   end
 
- def self.lookup(keyword) #This method is only returning the first part of the loop
+  def self.lookup(keyword) #This method is only returning the first part of the loop
    all.select do |idea|
-    #if idea.to_h["title"] 
-     idea.to_h["title"].include?(keyword)||
-    #elsif idea.to_h["description"] 
-     idea.to_h["description"].include?(keyword) ||
-    #elsif idea.to_h["tags"] 
-     idea.to_h["tags"].include?(keyword) 
+    idea.keyword?(keyword)
+   end
   end
- end
 end

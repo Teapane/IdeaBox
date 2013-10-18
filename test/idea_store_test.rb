@@ -1,17 +1,19 @@
+ENV['RACK_TEST'] = "true"
 gem 'minitest'
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/idea_box/idea_store'
 require './lib/idea_box/idea'
 require 'yaml/store'
+require 'pry'
 
 class IdeaStoreTest <Minitest::Test
 
   def setup
     IdeaStore.database
-    IdeaStore.create("title" => "Is this thing on?", "tags" => "poo")
-    IdeaStore.create("title" => "Yo?", "tags" => "sand")
-    IdeaStore.create("tags"  => "Why?")
+    IdeaStore.create("title" => "Is this thing on?", "description" => "dog", "tags" => "poo")
+    IdeaStore.create("title" => "Yo?", "description" => "cat", "tags" => "sand")
+    IdeaStore.create("title" => "hi", "tags"  => "Why?", "description" => "hi Austen")
   end
 
   def teardown
@@ -55,7 +57,7 @@ class IdeaStoreTest <Minitest::Test
   end
  
  def test_it_can_lookup_by_phrase
-  result = IdeaStore.lookup("Why?")
+  result = IdeaStore.lookup("hi Austen")
   assert_equal 1, result.count
 end
 

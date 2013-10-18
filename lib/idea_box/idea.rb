@@ -29,6 +29,10 @@ end
   IdeaStore.create(to_h)
  end
 
+ def keyword?(keyword)
+   title.include?(keyword) || description.include?(keyword) || tags.include?(keyword) 
+ end
+
  def to_h
   {
     "title" => title,
