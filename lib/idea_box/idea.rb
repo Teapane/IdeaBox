@@ -35,10 +35,10 @@ end
 
  def to_h
   {
-    "title" => title,
+    "title"       => title,
     "description" => description,
-    "rank" => rank,
-    "tags" => tags
+    "rank"        => rank,
+    "tags"        => tags
   }
  end
 

@@ -32,7 +32,7 @@ class IdeaStore
   end
 
   def self.delete(position)
-    transaction { raw_ideas.delete_at(position) }
+    transaction { database['ideas'].delete_at(position) }
   end
 
   def self.destroy_database
@@ -67,5 +67,12 @@ class IdeaStore
    all.select do |idea|
     idea.keyword?(keyword)
    end
+  end
+
+  def self.all_tags
+    all_tags = []
+    all.each do |idea|
+      idea.tags.split(",")
+    end
   end
 end

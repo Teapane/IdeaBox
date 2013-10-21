@@ -12,7 +12,7 @@ class IdeaStoreTest <Minitest::Test
   def setup
     IdeaStore.database
     IdeaStore.create("title" => "Is this thing on?", "description" => "dog", "tags" => "poo")
-    IdeaStore.create("title" => "Yo?", "description" => "cat", "tags" => "sand")
+    IdeaStore.create("title" => "yo", "description" => "cat", "tags" => "sand")
     IdeaStore.create("title" => "hi", "tags"  => "Why?", "description" => "hi Austen")
   end
 
@@ -33,14 +33,14 @@ class IdeaStoreTest <Minitest::Test
     result = IdeaStore.find(1)
     assert_equal 1, result.id
     assert_kind_of Idea, result
-    assert_equal "Yo?", result.title
+    assert_equal "yo", result.title
   end
 
   def test_it_can_update_an_idea
-    assert_equal "Yo?", IdeaStore.find(1).title
-    IdeaStore.update(1, "title" => "Yo")
+    assert_equal "yo", IdeaStore.find(1).title
+    IdeaStore.update(1, "title" => "yo")
     result = IdeaStore.find(1)
-    assert_equal "Yo", result.title
+    assert_equal "yo", result.title
   end
 
   def test_it_leaves_others_unchanged_when_updating_an_idea
@@ -56,10 +56,8 @@ class IdeaStoreTest <Minitest::Test
     assert_equal 1, result.count
   end
  
- def test_it_can_lookup_by_phrase
-  result = IdeaStore.lookup("hi Austen")
-  assert_equal 1, result.count
-end
-
-  #def test_it_can_update_an_idea
+  def test_it_can_lookup_by_phrase
+    result = IdeaStore.lookup("hi Austen")
+    assert_equal 1, result.count
+  end
 end
