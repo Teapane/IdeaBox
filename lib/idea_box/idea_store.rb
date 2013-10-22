@@ -68,11 +68,4 @@ class IdeaStore
     idea.keyword?(keyword)
    end
   end
-
-  def self.all_tags
-    all_tags = []
-    all.each do |idea|
-      idea.tags.split(",")
-    end
-  end
 end
