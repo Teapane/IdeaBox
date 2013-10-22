@@ -1,12 +1,21 @@
 <title>IdeaBox</title>
 <style>
   body 
-  {background-color: purple;
-   color: green;
+  {background-color: white;
+   color: black;
         }
 </style>
 <h1> IdeaBox</h1>
 
 <h3>Tags</h3>
+ <ul>
+      <% idea_tags.each do |tag| %>
+       <li> Tag: <%= tag %> <br />
+            <% ideas.collected_tags[tag].each do |idea| %>
+              <ul><li><%= idea.title %> </li></ul>
+            <% end %>
+        </li><br />
+      <% end %>
+    </ul>
 
 

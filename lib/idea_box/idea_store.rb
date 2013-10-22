@@ -68,4 +68,23 @@ class IdeaStore
     idea.keyword?(keyword)
    end
   end
+
+  def self.all_tags
+    all_tags = []
+    all.each do |idea|
+      idea.tags.split(", ").each do |tag|
+        all_tags << tag
+      end
+    end
+    all_tags.uniq
+    #all.collect {|idea| idea.tags.split(",")}
+  end
+
+  def self.collected_tags
+    all_tags.each_with_object({}) do |tag, hash|
+      hash[tag] = all.select do |idea|
+        idea.to_h["tags"].include?(tag)
+      end
+    end
+  end
 end

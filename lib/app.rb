@@ -1,6 +1,19 @@
-require 'bundler'
 require_relative 'idea_box'
-Bundler.require
+#require_relative 'user'
+#require_relative 'login_management'
+
+# Create a sign up form
+  # Allow users to enter username and password
+  # Store that information in the YAML
+  # Password needs to be encrypted (Bcrypt)
+# Scope ideas to signed in user
+  # env['warden'].user.ideas
+  # I should not be able to see other users ideas
+  # Search also needs to be scoped
+# Logout
+# Secure all routes
+  # As an unauthenticated user, I can not see any ideas
+# Oh and testing
 
 class IdeaBox < Sinatra::Base
   set :method_override, true
@@ -13,9 +26,11 @@ class IdeaBox < Sinatra::Base
     erb :error
   end
 
-  get '/' do
-    erb :index, locals: {ideas: IdeaStore.all.sort, idea: Idea.new}
-  end
+   get '/' do
+     #redirect '/login' unless env['warden'].authenticated?
+     erb :index, locals: {ideas: IdeaStore.all.sort, idea: Idea.new}
+     #erb :index, locals: {ideas: env['warden'].user.ideas.sort, idea: Idea.new}
+   end
 
   post '/' do 
     IdeaStore.create(params[:idea])
@@ -54,4 +69,23 @@ class IdeaBox < Sinatra::Base
     lookup_ideas = IdeaStore.lookup(params[:lookup])
     erb :lookup, locals: {lookup_ideas: lookup_ideas}
   end
+
+  get '/tags' do
+    idea_tags = IdeaStore.all_tags
+    erb :tags, locals: {idea_tags: idea_tags, ideas: IdeaStore}
+  end
+  
+   get '/login/?' do
+    erb :login
+   end
+  
+   post '/login/?' do
+    env['warden'].authenticate!
+    redirect "/"
+   end
+
+   get '/searchday' do
+    search_by_day = params[:idea][:search_day]
+    erb :searchday, locals: {search_by_day: search_by_day, ideas: IdeaStore.all.sort}
+   end
 end

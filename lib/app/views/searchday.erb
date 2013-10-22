@@ -1,0 +1,23 @@
+<h1> IdeaBox</h1>
+
+<h3> Here are the ideas created on <%search_by_day%></h3>
+<ul>
+  <%ideas.each do |idea|%>
+  <%if idea.day_of_week == search_by_day%>
+  <form action='/<%= idea.id%>/like' method='POST' style="display":inline>
+    <input type='submit' value="Like!"/>
+  </form>
+  <li>
+    <p>
+          Title: <%= idea.title %><br/>
+        </p>
+        <p>
+          Description: <%= idea.description %><br/>
+        </p>
+        <p>
+          Tag: <%= idea.tags%><br/>
+        </p>
+       </li> 
+       <%end%>
+       <%end%>
+     </ul>

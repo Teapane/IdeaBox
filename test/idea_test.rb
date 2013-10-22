@@ -8,7 +8,7 @@ class IdeaTest < Minitest::Test
     idea = Idea.new("title"       => "b-fast",
                     "description" => "biscuits n' gravy",
                     "id"          => "1",
-                    "tags"        => "hey"
+                    "tags"        => "hey",
                     )
     assert_equal "b-fast", idea.title
     assert_equal "biscuits n' gravy", idea.description

@@ -1,2 +1,18 @@
 ---
-ideas: []
+ideas:
+- title: hello
+  description: yo
+  rank: 1
+  tags: yo
+  updated_at: 2013-10-22 15:40:07.000000000 -06:00
+  created_at: 2013-10-22 15:40:07.000000000 -06:00
+- title: hi
+  description: yo
+  tags: yo
+- title: Sup
+  description: bitch
+  tags: sup
+users:
+- username: foo
+  password: bar
+  id: 1
