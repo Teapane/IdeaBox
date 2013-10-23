@@ -22,21 +22,32 @@ class IdeaTest < Minitest::Test
   end
 
   def test_it_has_a_hash_of_data_as_input_and_the_like_method_works
+    
     idea = Idea.new("title"       => "b-fast",
                     "description" => "biscuits n' gravy",
                     "id"          => "1",
                     "tags"        => "hey",
-                    "rank"        => 0)
+                    "rank"        => 0,
+                    "updated_at"  => "2013-10-22", 
+                    "created_at"  => "2013-10-22",
+                    "group"       => "travel")
     expected = {    "title"       => "b-fast",
                     "description" => "biscuits n' gravy",
                     "rank"        => 0,
-                    "tags"        => "hey" }
+                    "tags"        => "hey",
+                    "created_at"  => "2013-10-22",
+                    "updated_at"  => "2013-10-22",
+                    "group"       => "travel" }
     assert_equal expected, idea.to_h
     idea.like!
     expected2 = {   "title"       => "b-fast",
                     "description" => "biscuits n' gravy",
                     "rank"        => 1,
-                    "tags"        => "hey" }
+                    "tags"        => "hey",
+                     "created_at"  => "2013-10-22",
+                    "updated_at"  => "2013-10-22",
+                    "group"      => "travel"  
+                   }
     assert_equal expected2, idea.to_h
   end
 
@@ -56,6 +67,17 @@ class IdeaTest < Minitest::Test
     bad_idea.like!
     bad_idea.like!
     assert_equal 1, idea.<=>(bad_idea)
+  end
+
+  def test_it_gets_assigned_to_a_group
+    idea = Idea.new( "title"       => "b-fast",
+                     "description" => "biscuits n' gravy",
+                     "id"          => "1",
+                     "tags"        => "hey",
+                     "rank"        =>  0,
+                     "updated_at"  => "2013-10-22", 
+                     "created_at"  => "2013-10-22",
+                     "group"       => "travel")
   end
   
 end 

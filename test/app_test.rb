@@ -6,6 +6,7 @@ require 'minitest/pride'
 require './lib/app'
 #require './lib/app'
 require 'rack/test'
+require 'sinatra'
 
 
 class AppTest < Minitest::Test

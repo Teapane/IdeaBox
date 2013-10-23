@@ -5,22 +5,23 @@ class IdeaStore
   def self.all
     ideas = []
     raw_ideas.each_with_index do |data, i|
-      ideas << Idea.new(data.merge("id" => i))
+      ideas << Idea.new(data.to_h.merge("id" => i))
       end
     ideas
   end
 
   def self.find(id)
     raw_idea = find_raw_idea(id)
-    Idea.new(raw_idea.merge("id" => id))
+    Idea.new(raw_idea.to_h.merge("id" => id))
   end
 
   def self.database 
-    @database ||= if ENV['RACK_ENV'] == "test"
-    YAML::Store.new("db/test_ideabox")
-   else
-    YAML::Store.new('db/ideabox')
-   end
+    @database ||= YAML::Store.new('db/ideabox')
+    #if ENV['RACK_ENV'] == "test"
+    #YAML::Store.new("db/test_ideabox")
+   #else
+  
+   #end
   end
 
   def self.create(data)
@@ -63,7 +64,7 @@ class IdeaStore
     all.select { |idea| idea.to_h["tags"].include? search_tag }
   end
 
-  def self.lookup(keyword) #This method is only returning the first part of the loop
+  def self.lookup(keyword) 
    all.select do |idea|
     idea.keyword?(keyword)
    end
@@ -72,7 +73,7 @@ class IdeaStore
   def self.all_tags
     all_tags = []
     all.each do |idea|
-      idea.tags.split(", ").each do |tag|
+      idea.tags.split(',').each do |tag|
         all_tags << tag
       end
     end
@@ -85,6 +86,12 @@ class IdeaStore
       hash[tag] = all.select do |idea|
         idea.to_h["tags"].include?(tag)
       end
+    end
+  end
+
+  def self.find_by_group(group)
+      all.select do |idea|
+        idea.group == group
     end
   end
 end

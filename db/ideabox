@@ -1,18 +1,46 @@
 ---
 ideas:
+- title: Yo
+  description: Yo
+  tags: Yo
+- title: This is an idea
+  description: Makes this look better
+  tags: bootstrap
+- title: ''
+  description: ''
+  tags: ''
+- title: ''
+  description: ''
+  tags: ''
+- title: ty
+  description: ty
+  tags: ty
+  groups: Shopping
+- title: Hello
+  description: Yo
+  tags: how
+  groups: Travel
 - title: hello
-  description: yo
-  rank: 1
-  tags: yo
-  updated_at: 2013-10-22 15:40:07.000000000 -06:00
-  created_at: 2013-10-22 15:40:07.000000000 -06:00
+  description: hi
+  tags: h
+  groups: Home and Garden
+- title: tyler
+  description: loves g
+  tags: groups
+  groups: Travel
+- title: s
+  description: s
+  tags: s
+  groups: Travel
+- title: tyler
+  description: this i
+  tags: 'a '
+  groups: Travel
 - title: hi
-  description: yo
-  tags: yo
-- title: Sup
-  description: bitch
-  tags: sup
-users:
-- username: foo
-  password: bar
-  id: 1
+  description: hi
+  tags: hi
+  groups: Home and Garden
+- title: t
+  description: t
+  tags: t
+  group: Travel
