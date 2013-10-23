@@ -1,11 +1,12 @@
 <html>
+<div class="jumbotron">
+  <div class="container" >
+    <h1>IdeaBox</h1>
+    <p>It all starts with an Idea</p>
   <head>
-        <title>IdeaBox</title>
-      </head>
-      <h1 align="center">IDEABOX</h1>
-      <img src="http://www.myfunstudio.com/_gallery/1500/12XLtDM.png" class="logo">
-      <h2 align="center"> It all starts with an idea</h2>
-  </head>
+    <title>IdeaBox</title>
+    <link rel="stylesheet" href="/css/bootstrap.css">
+  </head>    
   <style> 
       body {background-color: white; 
              color: black ;
@@ -13,10 +14,10 @@
                   }
            img.logo {
       display:block;
-      width: 300px;
+      width: 700px;
       height: 200px;
       margin: 0 auto;
-      border: 5px solid black;
+      border: 10px solid green;
     }
      ul.ideas {
       list-style: none;
@@ -24,18 +25,26 @@
       padding: 0;
       overflow: hidden;
     }
+    .badge-success{
+      background-color: rgb(70, 136, 71);
+    }
     ul.ideas li {
       width: 40%;
       float: left;
       background: white;
       margin-right: 2%;
       padding: 3% 1%;
-      border: 5px solid black;
+      border: 10px solid green;
     }
   </style>
   <body>
-  <%= yield %>
- </body>
+    <!-- <h1 align="center">IDEABOX</h1> -->
+    <img src="http://www.myfunstudio.com/_gallery/1500/12XLtDM.png" class="logo">
+    <!-- <h2 align="center"> It all starts with an idea</h2> -->
+    <p>
+    </p>
+    <%= yield %>
+  </body>
 </html>
 
 

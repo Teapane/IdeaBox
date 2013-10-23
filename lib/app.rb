@@ -1,19 +1,6 @@
 require_relative 'idea_box'
-#require_relative 'user'
-#require_relative 'login_management'
-
-# Create a sign up form
-  # Allow users to enter username and password
-  # Store that information in the YAML
-  # Password needs to be encrypted (Bcrypt)
-# Scope ideas to signed in user
-  # env['warden'].user.ideas
-  # I should not be able to see other users ideas
-  # Search also needs to be scoped
-# Logout
-# Secure all routes
-  # As an unauthenticated user, I can not see any ideas
-# Oh and testing
+require 'sinatra'
+require 'sinatra/base'
 
 class IdeaBox < Sinatra::Base
   set :method_override, true
@@ -89,8 +76,8 @@ class IdeaBox < Sinatra::Base
     erb :searchday, locals: {search_by_day: search_by_day, ideas: IdeaStore.all.sort}
    end
 
-    get '/groups' do
-    matching_ideas = IdeaStore.find_by_group(params[:groups])
+   get '/groups' do
+    matching_ideas = IdeaStore.find_by_group(params[:group])
     erb :groups, locals: {matching_ideas: matching_ideas}
-  end
+   end
 end

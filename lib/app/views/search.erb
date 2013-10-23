@@ -1,18 +1,12 @@
 <title>Ideabox</title>
-<h1>Ideabox</h1>
    </head>
-  <style> 
-      body {background-color: white; 
-             color: black ;
-               }
-  </style>
   <body>
 <h3>Sorted Ideas</h3>
 <ul>
   <% tagged_ideas.each do |idea| %>
       <li>
-        <form action='/<%= idea.id %>/like' method='POST' style="display: inline">
-        <input type='submit' value="Like?"/>
+        <form action='/<%= idea.id %>/like' method='POST'  style="display: inline">
+        <input type='submit' class="btn btn-success" value="Like?"/>
         </form>
         <p>
           Title: <%= idea.title %><br/>

@@ -1,24 +1,23 @@
 
-    <%= erb :form, locals: {idea: idea} %>
-       <h3>Existing Ideas</h3>
-
-        <ul class= "ideas">
-          <% ideas.each do |idea| %>
-            <li>
-              <form action='/<%= idea.id %>/like' method='POST' style="display: inline">
-                <input type='submit' value="Like"/>
-              </form>
-              Title:<%=idea.title%><br/>
-              Description:<%=idea.description%><br/>
-              Tag:<%=idea.tags%><br/>
-              Group: <%= idea.group %><br/>
-               Created at: <%= idea.created_at.strftime("%-m/%e/%y") %><br/>
-               Updated at: <%= idea.updated_at.strftime("%-m/%e/%y") %><br/>
-              <a class="button" href="/<%= idea.id %>/edit">Edit</a>
-              <form action='/<%= idea.id %>' method='POST'>
-                <input type="hidden" name="_method" value="DELETE">
-                <input type='submit' value="delete"/>
-              </form>
+<%= erb :form, locals: {idea: idea} %>
+  <h3>Existing Ideas</h3>
+    <ul class= "ideas">
+      <% ideas.each do |idea| %>
+        <li>
+          <form action='/<%= idea.id %>/like' method='POST' style="display: inline">
+            <input type='submit' class="btn btn-success" style="margin-right:10px" value   ="Like"/><span class="badge badge-success"><%= idea.rank %></span>
+          </form>
+            <p style="font-size:40px; color:red"><%=idea.title%><br/></p>
+            <p style="font-size:25px; color:orange">Description:<%=idea.description%><br  /></p>
+            Tag:<%=idea.tags%><br/>
+            Group: <%= idea.group %><br/>
+            Created at: <%= idea.created_at.strftime("%-m/%e/%y") %><br/>
+            Updated at: <%= idea.updated_at.strftime("%-m/%e/%y") %><br/>
+             <a class="btn btn-warning" href="/<%= idea.id %>/edit">Edit</a>
+          <form action='/<%= idea.id %>' method='POST'>
+            <input type="hidden" class="btn btn-danger" name="_method" value="DELETE">
+              <input type='submit' class="btn btn-danger" value="delete"/>
+          </form>
             </li>
           <% end %>
         </ul> 

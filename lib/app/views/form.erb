@@ -1,3 +1,4 @@
+<div class="col-md-4">
 <form action='/<%= idea.id %>' method='POST'>
   <p>
     <% if idea.id %>
@@ -10,11 +11,10 @@
     <input type="hidden" name="_method" value="PUT" />
   <% end %>
   <input type='text' name='idea[title]' value="<%= idea.title %>"/>Title<br/>
-  <textarea name='idea[description]'><%= idea.description %></textarea> Description<br/>
+  <textarea name='idea[description]'><%= idea.description %></textarea>Description<br/>
   <textarea name='idea[tags]'><%= idea.tags %></textarea> Tag<br/>
-
-
-  <select name="idea[group]">
+ 
+  <select name="group">
    <option value="No Group">No Group</option>
    <option value="Home and Garden">Home and Garden</option>
    <option value="Travel">Travel</option>
@@ -25,17 +25,19 @@
   </select><br/>
   <input type='submit'/>
   </form>
+ </div>
+  <%unless idea.id %>
 
 <form action='/search' method='GET'>
-  <input type= 'text' name= "search_tag">
- <input type='submit' value= "Search by Tag"/> 
+  <input type= 'text'  name= "search_tag">
+ <input type='submit' class="btn btn-primary btn-lg" value= "Search by Tag"/> 
 </form>
 <form action='/lookup' method='GET'>
   <input type= 'text' name= "lookup">
- <input type='submit' value= "Search by Phrase"/> 
+ <input type='submit' class="btn btn-primary btn-lg"  value= "Search by Phrase"/> 
 </form>
 <form action='/tags' method='GET'>
-  <button type= 'submit'>Tags</button>
+  <button type='submit'>Tags</button>
   </form>
   <form action="/searchday"> 
    <select name="idea[search_day]">
@@ -47,10 +49,10 @@
     <option value="Saturday">Saturday</option>
     <option value="Sunday">Sunday</option>
   </select>
-  <input type="submit" value="Search By Day Of Week">
+  <input type="submit" class="btn btn-primary btn-lg" value="Search By Day Of Week">
 </form>
  <form action="/groups" method='GET' > 
-   <select name="idea[group]">
+   <select name="group">
     <option value="No Group">No Group</option>
     <option value="Home and Garden">Home and Garden</option>
     <option value="Travel">Travel</option>
@@ -59,6 +61,7 @@
     <option value="Culinary">Culinary</option>
     <option value="Fitness and Health">Fitness and Health</option>
   </select>
-  <input type="submit" value="Search By Group">
+  <input type="submit" class="btn btn-primary btn-lg" value="Search By Group">
 </form>
+<%end%>
 

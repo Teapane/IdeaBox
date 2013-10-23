@@ -7,6 +7,7 @@ require './lib/app'
 #require './lib/app'
 require 'rack/test'
 require 'sinatra'
+require 'sinatra/base'
 
 
 class AppTest < Minitest::Test
@@ -37,9 +38,9 @@ class AppTest < Minitest::Test
   end
 
   def test_create_new_idea
-    post "/", {idea: {title: "exercise", description: "Sign up for stick fighting classes"}}
+    post "/", {idea: {title: "This is an Idea", description: "Sign up for stick fighting classes"}}
     idea = IdeaStore.all.first
-    assert_equal "exercise", idea.title
+    assert_equal "This is an Idea", idea.title
     assert_equal "Sign up for stick fighting classes", idea.description
   end
 

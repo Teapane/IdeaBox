@@ -20,7 +20,6 @@ class IdeaStore
     #if ENV['RACK_ENV'] == "test"
     #YAML::Store.new("db/test_ideabox")
    #else
-  
    #end
   end
 
@@ -78,7 +77,6 @@ class IdeaStore
       end
     end
     all_tags.uniq
-    #all.collect {|idea| idea.tags.split(",")}
   end
 
   def self.collected_tags
