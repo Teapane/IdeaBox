@@ -17,10 +17,6 @@ class IdeaStore
 
   def self.database 
     @database ||= YAML::Store.new('db/ideabox')
-    #if ENV['RACK_ENV'] == "test"
-    #YAML::Store.new("db/test_ideabox")
-   #else
-   #end
   end
 
   def self.create(data)
