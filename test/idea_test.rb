@@ -4,6 +4,7 @@ require 'minitest/pride'
 require './lib/idea_box/idea'
 
 class IdeaTest < Minitest::Test
+   
    def test_an_idea_and_its_attributes
     idea = Idea.new("title"       => "b-fast",
                     "description" => "biscuits n' gravy",
@@ -79,5 +80,4 @@ class IdeaTest < Minitest::Test
                      "created_at"  => "2013-10-22",
                      "group"       => "travel")
   end
-  
 end 
